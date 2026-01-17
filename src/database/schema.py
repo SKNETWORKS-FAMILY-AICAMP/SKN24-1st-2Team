@@ -61,7 +61,7 @@ class DBSchema:
     FAQ_CATEGORY_TABLE = """
     CREATE TABLE IF NOT EXISTS faq_category_tbl (
         category_code INT PRIMARY KEY AUTO_INCREMENT,        -- 카테고리 코드(PK)
-        category_name VARCHAR(10) NOT NULL,                  -- 카테고리명
+        category_name VARCHAR(10) NOT NULL                   -- 카테고리명
     );
     """
 
