@@ -11,25 +11,26 @@ def render_navigation_bar():
   for idx, item in enumerate(menu_items):
     if idx == active_idx:
       button_styles += f"""
-        div[data-testid="stHorizontalBlock"] > div:nth-child({idx + 2}) button {{
+        .st-key-nav_bar div[data-testid="stHorizontalBlock"] > div:nth-child({idx + 2}) button {{
           color: #ffffff !important;
         }}
       """
   
   st.markdown(f"<style>{button_styles}</style>", unsafe_allow_html=True)
   
-  cols = st.columns([2] + [0.5] * len(menu_items) + [2])
-  
-  # 로고
-  with cols[0]:
-    st.markdown(
-      '<p class="nav-logo">DumPs Up!</p>',
-      unsafe_allow_html=True
-    )
-  
-  # 메뉴
-  for idx, item in enumerate[str](menu_items):
-    with cols[idx + 1]:
-      if st.button(item, key=f'nav_{item}', use_container_width=True):
-        st.session_state.current_page = item
-        st.rerun()
+  with st.container(key="nav_bar"):
+    cols = st.columns([2] + [0.5] * len(menu_items) + [2])
+    
+    # 로고
+    with cols[0]:
+      st.markdown(
+        '<p class="nav-logo">DumPs Up!</p>',
+        unsafe_allow_html=True
+      )
+    
+    # 메뉴
+    for idx, item in enumerate(menu_items):
+      with cols[idx + 1]:
+        if st.button(item, key=f'nav_{item}', use_container_width=True):
+          st.session_state.current_page = item
+          st.rerun()
