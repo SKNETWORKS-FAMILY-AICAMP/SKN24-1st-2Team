@@ -1,51 +1,60 @@
-.nav-bar-container {
-  padding: 1rem 0;
-  margin-bottom: 1rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+[data-testid="stAppViewContainer"],
+[data-testid="stApp"] {
+  background-color: #0a0a0a !important;
 }
 
-.nav-bar {
-  font-weight: bold;
-  font-size: 14px;
-  letter-spacing: 0.3em;
-  text-align: center;
-  color: #fff;
+[data-testid="stHeader"] {
+  display: none !important;
 }
 
-.logo {
-  font-size: 1.5rem !important;
-  font-weight: bold !important;
-  color: #fff !important;
-  text-align: left !important;
-  margin-left: 1rem !important;
+.block-container {
+  padding: 1rem 2rem !important;
+  max-width: 100% !important;
 }
 
-.nav-bar .logo {
-  font-size: 1.5rem;
-  font-weight: bold;
-  color: #fff;
-  text-align: left;
-  margin-left: 1rem;
+/* 네비게이션 바 - 로고 */
+.nav-logo {
+  font-size: 1.2rem !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.3em !important;
 }
 
-.nav-bar .nav-link {
-  font-size: 1.2rem;
-  font-weight: bold;
-  color: #fff;
-  text-align: center;
-  margin-right: 1rem;
-  text-decoration: none;
-  transition: all 0.3s ease;
+/* 네비게이션 바 - 버튼 */
+div[data-testid="stHorizontalBlock"] button {
+  background: transparent !important;
+  border: none !important;
+  color: #888888 !important;
+  font-size: 0.85rem !important;
+  font-weight: 400 !important;
+  padding: 0.5rem 0 !important;
+  height: auto !important;
+  min-height: 0 !important;
+  box-shadow: none !important;
 }
 
+div[data-testid="stHorizontalBlock"] button:hover,
+div[data-testid="stHorizontalBlock"] button:focus,
+div[data-testid="stHorizontalBlock"] button:active {
+  background: transparent !important;
+  border: none !important;
+  color: #ffffff !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
 
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    max-height: 0;
-  }
-  to {
-    opacity: 1;
-    max-height: 100%;
-  }
+/* 기본 텍스트 */
+.stApp {
+  color: #ffffff !important;
+}
+
+p, span, label, h1, h2, h3, h4, h5, h6 {
+  color: #ffffff !important;
+}
+
+a {
+  color: #888888 !important;
+}
+
+a:hover {
+  color: #ffffff !important;
 }
