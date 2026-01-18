@@ -17,9 +17,7 @@ def get_raw_region_data():
         
         # 1. 지역 이름 수집
         region_row = driver.find_elements(By.CSS_SELECTOR, 'table.datatable>thead>tr>th')
-        regions = [r.text for r in region_row[1:]]
-        if regions:
-            regions[-1] = '전국' # 마지막 항목 보정
+        regions = [r.text for r in region_row[1:-1]]
         
         # 2. 충전소 개수 수집
         first_row = driver.find_element(By.CSS_SELECTOR, 'tbody#tBodyList>tr')
