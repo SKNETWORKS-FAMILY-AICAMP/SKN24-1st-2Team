@@ -4,17 +4,19 @@ from selenium.webdriver.support.ui import WebDriverWait
 import time
 import json
 from pathlib import Path 
+from selenium.webdriver.chrome.service import Service
 
-chromedriver_path = 'chromedriver.exe'
+# chromedriver_path = 'chromedriver.exe'
 
 
-OUTPUT_DIR = Path(r"C:\skn24\team_project(1)\DumPs-Up\data\raw\faq")
+OUTPUT_DIR = Path('data/raw/faq')
 OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 print(f"📁 Output directory: {OUTPUT_DIR}")
 print(f"   Directory exists: {OUTPUT_DIR.exists()}\n")
 
 
-service = webdriver.chrome.service.Service(chromedriver_path)
+# service = webdriver.chrome.service.Service(chromedriver_path)
+service = Service()
 driver = webdriver.Chrome(service=service)
 
 
@@ -281,8 +283,8 @@ output_data = {
     "faqs": all_faqs
 }
 
-all_faqs_path = OUTPUT_DIR / "all_faqs_json"
-with open("all_faqs_path", "w", encoding="utf-8") as file:
+all_faqs_path = OUTPUT_DIR / "all_faqs.json"
+with open(all_faqs_path, "w", encoding="utf-8") as file:
     json.dump(output_data, file, ensure_ascii=False, indent=2)
 print(f"✅ all_faqs.json saved to: {all_faqs_path}")
 
@@ -298,7 +300,7 @@ for category in category_keywords.keys():
             "count": len(category_faqs),
             "faqs": category_faqs
         }
-        with open(filename, "w", encoding="utf-8") as file:
+        with open(filepath, "w", encoding="utf-8") as file:
             json.dump(category_data, file, ensure_ascii=False, indent=2)
         print(f"✅ {filename} saved to: {filepath} ({len(category_faqs)} items)")
 
