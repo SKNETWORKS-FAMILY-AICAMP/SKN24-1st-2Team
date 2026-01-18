@@ -2,13 +2,13 @@ import streamlit as st
 from src.utils.styles import load_css
 from src.components.navigation_bar import render_navigation_bar
 
-load_css()
-
 st.set_page_config(
   page_title='DumPs Up!',
   layout='wide',
   initial_sidebar_state='collapsed',
 )
+
+load_css()
 
 if 'current_page' not in st.session_state:
   st.session_state.current_page = '통계 및 현황'
