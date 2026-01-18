@@ -1,7 +1,6 @@
-from typing import List, Dict, Any, Optional
 from src.database.db_manager import DBManager
 
-def get_fuel_list(fuel_type: Optional[str] = None) -> List[Dict[str, Any]]:
+def get_fuel_list(fuel_type=None):
     db = DBManager()
     if not db.connect():
         return[]
