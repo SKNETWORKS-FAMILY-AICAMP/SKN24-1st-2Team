@@ -7,7 +7,7 @@ import os, time
 
 # 경로 설정
 url = 'https://stat.molit.go.kr/portal/cate/statMetaView.do?hRsId=58'
-rel_path = '../../../data/raw/registered_cars'
+rel_path = 'data/raw/registered_cars'
 abs_path = os.path.abspath(rel_path)
 
 
