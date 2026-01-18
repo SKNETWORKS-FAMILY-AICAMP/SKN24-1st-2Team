@@ -226,11 +226,11 @@ def create_bubble_map(df_json, filter_type = "charging", lightweight = False, _v
     # 버블 크기 계산
     if filter_type == "charging":
         sizeref = 2.0 * max(df["count"]) / (80 ** 2)
-        text_values = [f"{region}\n{v:,}" for region, v in zip(df["region"], df["count"])]
+        text_values = [f"{region}<br>{v:,}" for region, v in zip(df["region"], df["count"])]
         hover_template = "<b>%{customdata[0]}</b><br>충전소: %{customdata[1]:,}기<extra></extra>"
     else:
         sizeref = 2.0 * max(df["count"]) / (70 ** 2)
-        text_values = [f"{region}\n{v:.1f}%" for region, v in zip(df["region"], df["count"])]
+        text_values = [f"{region}<br>{v:.1f}%" for region, v in zip(df["region"], df["count"])]
         hover_template = "<b>%{customdata[0]}</b><br>전기 화물차 비중: %{customdata[1]:.1f}%<extra></extra>"
     
     # Figure 생성

@@ -141,7 +141,7 @@ def render_maintenance_cost_chart(data):
         margin=dict(l=40, r=20, t=20, b=60),
         height=300,
         showlegend=False,
-        bargap=0.55,
+        bargap=0.775,
         xaxis=dict(
             showgrid=False,
             showline=False,
