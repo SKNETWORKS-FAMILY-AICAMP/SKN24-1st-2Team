@@ -6,7 +6,15 @@
 """
 
 import importlib
+from functools import lru_cache
+from html import escape
+from io import BytesIO
+from pathlib import Path
+from urllib.parse import quote
+
 import pandas as pd
+import requests
+from PIL import Image
 
 from config import LOCATION_COORDS
 
@@ -26,6 +34,103 @@ get_region_list = _optional_service_fn("src.services.region_service", "get_regio
 get_registration_count_list = _optional_service_fn(
     "src.services.registration_service", "get_registration_count_list"
 )
+
+# ==============================================================================
+# 이미지 유틸
+# ==============================================================================
+
+_DEFAULT_CAR_IMAGE_SVG = """\
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="450" viewBox="0 0 800 450">
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1">
+      <stop offset="0" stop-color="#0b0d11"/>
+      <stop offset="1" stop-color="#111318"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="450" rx="18" fill="url(#bg)"/>
+  <g fill="none" stroke="rgba(255,255,255,0.18)" stroke-width="6">
+    <path d="M140 285c20-55 55-85 110-95l60-10h200l70 20c40 12 65 42 80 85" />
+    <path d="M190 285h420" />
+  </g>
+  <g fill="rgba(255,255,255,0.35)">
+    <circle cx="255" cy="300" r="26"/>
+    <circle cx="545" cy="300" r="26"/>
+  </g>
+  <text x="50%" y="56%" text-anchor="middle" fill="rgba(255,255,255,0.45)" font-size="20" font-family="system-ui, -apple-system, Segoe UI, Roboto">
+    이미지 준비 중
+  </text>
+</svg>
+"""
+
+
+def default_car_image_data_url() -> str:
+    """
+    이미지가 없거나 로드 실패 시 사용할 기본 SVG(data URL)를 반환합니다.
+    """
+    return "data:image/svg+xml;utf8," + quote(_DEFAULT_CAR_IMAGE_SVG)
+
+
+def image_html(image_src, *, alt="", fit="contain"):
+    """
+    Streamlit `st.markdown(..., unsafe_allow_html=True)`에서 바로 사용할 수 있는 <img> 태그 문자열을 반환합니다.
+
+    - image_src: URL(https://...) 또는 로컬 파일 경로
+    """
+    src = image_src or default_car_image_data_url()
+    # HTML 속성 안전 처리
+    src_escaped = escape(str(src), quote=True)
+    alt_escaped = escape(alt, quote=True)
+    fit_css = escape(fit, quote=True)
+    return (
+        f'<img src="{src_escaped}" alt="{alt_escaped}" '
+        f'style="width:100%;height:100%;object-fit:{fit_css};display:block;" />'
+    )
+
+
+def _is_url(s):
+    return s.startswith("http://") or s.startswith("https://")
+
+
+@lru_cache(maxsize=128)
+def fetch_image_bytes(image_ref, *, timeout=8):
+    """
+    URL/로컬 경로에서 이미지를 bytes로 가져옵니다(간단 캐시 포함).
+    """
+    if not image_ref:
+        return None
+
+    try:
+        if _is_url(str(image_ref)):
+            resp = requests.get(image_ref, timeout=timeout)
+            resp.raise_for_status()
+            return resp.content
+
+        p = Path(image_ref)
+        if p.exists() and p.is_file():
+            return p.read_bytes()
+    except Exception:
+        return None
+
+    return None
+
+
+def load_image_pil(image_ref, *, timeout=8):
+    """
+    URL/로컬 경로에서 이미지를 로드하여 PIL Image로 반환합니다.
+    실패 시 기본 SVG를 PIL로 변환할 수 없으므로, 빈 이미지(검정 배경)를 반환합니다.
+    """
+    if not image_ref:
+        # Pillow는 SVG를 직접 열지 못하므로, 안전한 단색 폴백
+        return Image.new("RGB", (800, 450), color=(10, 10, 10))
+
+    b = fetch_image_bytes(image_ref, timeout=timeout)
+    if not b:
+        return Image.new("RGB", (800, 450), color=(10, 10, 10))
+
+    try:
+        return Image.open(BytesIO(b)).convert("RGBA")
+    except Exception:
+        return Image.new("RGB", (800, 450), color=(10, 10, 10))
 
 # ==============================================================================
 # 통계/현황(지도) 데이터
@@ -189,26 +294,10 @@ def get_dummy_car_info_data():
     """
     return [
         # 전기 차량
-        ("전기", "e-마스터", "현대", "대형", 3.5, 300, 64.0, None, None, None, 400, 85000000, "/images/e-master.jpg"),
-        ("전기", "포터2 전기", "기아", "소형", 1.0, 100, 35.0, None, None, None, 200, 45000000, "/images/porter2-electric.jpg"),
-        ("전기", "봉고3 전기", "기아", "중형", 1.5, 140, 58.0, None, None, None, 350, 65000000, "/images/bongo3-electric.jpg"),
-        ("전기", "라보전기", "GM대우", "중형", 1.5, 120, 50.0, None, None, None, 300, 58000000, "/images/labo-electric.jpg"),
-        
-        # 수소 차량
-        ("수소", "엑시언트 수소", "현대", "대형", 3.5, 350, 32.0, None, None, None, 400, 85000000, "/images/xcient-hydrogen.jpg"),
-        
-        # 경유 차량
-        ("경유", "포터2", "기아", "소형", 1.0, 130, 60.0, 12.5, 10.8, 14.2, 750, 20000000, "/images/porter2-diesel.jpg"),
-        ("경유", "봉고3", "기아", "중형", 1.5, 170, 75.0, 11.8, 10.2, 13.5, 885, 28000000, "/images/bongo3-diesel.jpg"),
-        ("경유", "마이티", "현대", "대형", 3.5, 260, 120.0, 10.5, 9.2, 11.8, 1260, 45000000, "/images/mighty-diesel.jpg"),
-        ("경유", "라보", "GM대우", "중형", 1.5, 165, 70.0, 11.5, 10.0, 13.0, 805, 27000000, "/images/labo-diesel.jpg"),
-        
-        # LPG 차량
-        ("LPG", "포터2 LPG", "기아", "소형", 1.0, 120, 60.0, 10.5, 9.0, 12.0, 630, 19000000, "/images/porter2-lpg.jpg"),
-        ("LPG", "봉고3 LPG", "기아", "중형", 1.5, 155, 75.0, 9.8, 8.5, 11.2, 735, 26000000, "/images/bongo3-lpg.jpg"),
-        
-        # 가솔린 차량
-        ("가솔린", "포터2 가솔린", "기아", "소형", 1.0, 125, 65.0, 9.5, 8.2, 10.8, 617, 21000000, "/images/porter2-gasoline.jpg"),
+        ("전기", "e-마스터", "현대", "대형", 3.5, 300, 64.0, None, None, None, 400, 85000000, "https://autoimg.danawa.com/photo/4404/model_360.png"),
+        ("전기", "포터2 전기", "기아", "소형", 1.0, 100, 35.0, None, None, None, 200, 45000000, "https://autoimg.danawa.com/photo/4404/model_360.png"),
+        ("전기", "봉고3 전기", "기아", "중형", 1.5, 140, 58.0, None, None, None, 350, 65000000, "https://autoimg.danawa.com/photo/4404/model_360.png"),
+        ("전기", "라보전기", "GM대우", "중형", 1.5, 120, 50.0, None, None, None, 300, 58000000, "https://autoimg.danawa.com/photo/4404/model_360.png"),
     ]
 
 
