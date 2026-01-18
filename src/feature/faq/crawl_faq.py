@@ -3,8 +3,17 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 import time
 import json
+from pathlib import Path 
 
 chromedriver_path = 'chromedriver.exe'
+
+
+OUTPUT_DIR = Path(r"C:\skn24\team_project(1)\DumPs-Up\data\raw\faq")
+OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+print(f"📁 Output directory: {OUTPUT_DIR}")
+print(f"   Directory exists: {OUTPUT_DIR.exists()}\n")
+
+
 service = webdriver.chrome.service.Service(chromedriver_path)
 driver = webdriver.Chrome(service=service)
 
@@ -111,7 +120,6 @@ sites = [
     }
 ]
 
-# Classification Functions
 
 def classify_category(text):
     """Classify text into category based on keywords"""
@@ -134,7 +142,7 @@ def classify_fuel_type(text):
 all_faqs = []
 
 print("=" * 60)
-print("🚛 Truck FAQ Crawler Started!")
+print("Truck FAQ Crawler Started")
 print("=" * 60)
 print(f"Total sites to crawl: {len(sites)}\n")
 
@@ -230,8 +238,6 @@ for idx, site in enumerate(sites, 1):
         print(f"❌ Error: {error}")
 
 
-# Statistics Summary
-
 print("\n" + "=" * 60)
 print("📊 Collection Results")
 print("=" * 60)
@@ -269,14 +275,16 @@ output_data = {
         "total_count": len(all_faqs),
         "collection_date": time.strftime("%Y-%m-%d %H:%M:%S"),
         "categories": category_stats,
-        "fuel_types": fuel_stats
+        "fuel_types": fuel_stats,
+        "output_directory": str(OUTPUT_DIR)
     },
     "faqs": all_faqs
 }
 
-with open("all_faqs.json", "w", encoding="utf-8") as file:
+all_faqs_path = OUTPUT_DIR / "all_faqs_json"
+with open("all_faqs_path", "w", encoding="utf-8") as file:
     json.dump(output_data, file, ensure_ascii=False, indent=2)
-print("✅ all_faqs.json saved!")
+print(f"✅ all_faqs.json saved to: {all_faqs_path}")
 
 # Save by category
 for category in category_keywords.keys():
@@ -284,6 +292,7 @@ for category in category_keywords.keys():
     
     if category_faqs:
         filename = f"{category}_faqs.json"
+        filepath = OUTPUT_DIR / filename
         category_data = {
             "category": category,
             "count": len(category_faqs),
@@ -291,20 +300,18 @@ for category in category_keywords.keys():
         }
         with open(filename, "w", encoding="utf-8") as file:
             json.dump(category_data, file, ensure_ascii=False, indent=2)
-        print(f"✅ {filename} saved! ({len(category_faqs)} items)")
+        print(f"✅ {filename} saved to: {filepath} ({len(category_faqs)} items)")
 
 
 driver.quit()
 
 print("\n" + "=" * 60)
-print("🎉 All tasks completed!")
+print("All tasks completed")
 print("=" * 60)
+print(f"\n All files saved to: {OUTPUT_DIR}")
 print("\nSaved files:")
-print("  - all_faqs.json (with metadata)")
-print("  - cost_faqs.json")
-print("  - registration_faqs.json")
-print("  - infrastructure_faqs.json")
-print("  - maintenance_faqs.json")
-print("\n💡 Tips:")
-print("  - Check all_faqs.json for complete data with statistics")
-print("  - Category files contain filtered data by topic")
+print(f"  - {OUTPUT_DIR / 'all_faqs.json'} (with metadata)")
+print(f"  - {OUTPUT_DIR / 'cost_faqs.json'}")
+print(f"  - {OUTPUT_DIR / 'registration_faqs.json'}")
+print(f"  - {OUTPUT_DIR / 'infrastructure_faqs.json'}")
+print(f"  - {OUTPUT_DIR / 'maintenance_faqs.json'}")
