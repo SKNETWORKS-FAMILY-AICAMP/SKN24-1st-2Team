@@ -1,51 +1,219 @@
-.nav-bar-container {
-  padding: 1rem 0;
+/* ========================================
+   기본 레이아웃
+   ======================================== */
+[data-testid="stAppViewContainer"],
+[data-testid="stApp"] {
+  background-color: #0a0a0a !important;
+}
+
+[data-testid="stHeader"] {
+  display: none !important;
+}
+
+.block-container {
+  margin-bottom: 8rem !important;
+  padding: 1rem 2rem !important;
+  max-width: 80% !important;
+}
+
+/* ========================================
+   네비게이션 바
+   ======================================== */
+.nav-logo {
+  font-size: 1.2rem !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.3em !important;
+}
+
+/* 네비게이션 바 버튼 */
+.st-key-nav_bar button {
+  background: transparent !important;
+  border: none !important;
+  color: #888888 !important;
+  font-size: 0.85rem !important;
+  font-weight: 400 !important;
+  padding: 0.5rem 0 !important;
+  height: auto !important;
+  min-height: 0 !important;
+  box-shadow: none !important;
+}
+
+.st-key-nav_bar button:hover,
+.st-key-nav_bar button:focus,
+.st-key-nav_bar button:active {
+  background: transparent !important;
+  border: none !important;
+  color: #ffffff !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+/* ========================================
+   기본 텍스트
+   ======================================== */
+.stApp {
+  color: #ffffff !important;
+}
+
+p, span, label, h1, h2, h3, h4, h5, h6 {
+  color: #ffffff !important;
+}
+
+a {
+  color: #888888 !important;
+}
+
+a:hover {
+  color: #ffffff !important;
+}
+
+.page-title {
+  font-size: 1.75rem !important;
+  font-weight: 600 !important;
+  margin-bottom: 1.5rem !important;
+}
+
+/* ========================================
+   필터 탭
+   ======================================== */
+.st-key-filter_tabs {
   margin-bottom: 1rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
 }
 
-.nav-bar {
-  font-weight: bold;
-  font-size: 14px;
-  letter-spacing: 0.3em;
-  text-align: center;
-  color: #fff;
+.st-key-filter_tabs button {
+  padding: 0.5rem 1.25rem !important;
+  border-radius: 50px !important;
+  border: none !important;
+  font-size: 0.875rem !important;
+  transition: background-color 0.15s ease, color 0.15s ease !important;
 }
 
-.logo {
+/* 필터 탭 내 버튼 기본 상태 (secondary) */
+.st-key-filter_tabs button[kind="secondary"] {
+  background: #1f1f1f !important;
+  color: #999 !important;
+}
+
+/* 필터 탭 내 버튼 hover (secondary) */
+.st-key-filter_tabs button[kind="secondary"]:hover {
+  background: #2a2a2a !important;
+  color: #ffffff !important;
+}
+
+/* 필터 탭 내 버튼 활성 상태 (primary) */
+.st-key-filter_tabs button[kind="primary"],
+.st-key-filter_tabs button[kind="primary"]:hover,
+.st-key-filter_tabs button[kind="primary"]:focus,
+.st-key-filter_tabs button[kind="primary"]:active {
+  background: #ffffff !important;
+  color: #0a0a0a !important;
+  border: none !important;
+}
+
+/* 필터 탭 내 버튼 활성 상태 (primary) - 내부 텍스트 */
+.st-key-filter_tabs button[kind="primary"] p,
+.st-key-filter_tabs button[kind="primary"] span,
+.st-key-filter_tabs button[kind="primary"]:hover p,
+.st-key-filter_tabs button[kind="primary"]:hover span {
+  color: #0a0a0a !important;
+}
+
+/* ========================================
+   지도 컨테이너 (오버레이 포함)
+   ======================================== */
+.st-key-map_container {
+  position: relative !important;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  overflow: hidden;
+  margin-top: 1rem;
+}
+
+/* 지도 헤더 오버레이 (좌상단 제목 + 우상단 연도) */
+.map-header-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 1.25rem 1.5rem;
+  z-index: 100;
+  pointer-events: none;
+}
+
+.map-title {
+  color: #ffffff !important;
   font-size: 1.5rem !important;
-  font-weight: bold !important;
-  color: #fff !important;
-  text-align: left !important;
-  margin-left: 1rem !important;
+  font-weight: 500 !important;
+  margin: 0 !important;
 }
 
-.nav-bar .logo {
-  font-size: 1.5rem;
-  font-weight: bold;
-  color: #fff;
-  text-align: left;
-  margin-left: 1rem;
+.map-subtitle {
+  color: #999999 !important;
+  font-size: 1.4rem !important;
+  margin: 0 !important;
 }
 
-.nav-bar .nav-link {
-  font-size: 1.2rem;
-  font-weight: bold;
-  color: #fff;
-  text-align: center;
-  margin-right: 1rem;
-  text-decoration: none;
-  transition: all 0.3s ease;
+/* 지도 범례 오버레이 (좌하단) */
+.map-legend-overlay {
+  position: absolute;
+  bottom: 1.25rem;
+  left: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  z-index: 100;
+  pointer-events: none;
 }
 
+.legend-dot {
+  width: 10px;
+  height: 10px;
+  background: #3b82f6;
+  border-radius: 50%;
+  display: inline-block;
+  flex-shrink: 0;
+}
 
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    max-height: 0;
-  }
-  to {
-    opacity: 1;
-    max-height: 100%;
-  }
+.legend-text {
+  color: #9ca3af !important;
+  font-size: 1rem !important;
+  margin: 0 !important;
+}
+
+/* ========================================
+   차트 카드
+   ======================================== */
+.st-key-chart_card_trend,
+.st-key-chart_card_cost {
+  background: linear-gradient(145deg, #111318 0%, #0d0f12 100%);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  padding: 1.25rem;
+}
+
+.chart-header {
+  margin-bottom: 0.25rem;
+}
+
+.chart-title {
+  color: #ffffff !important;
+  font-size: 1.2rem !important;
+  font-weight: 600 !important;
+  margin: 0 0 0.25rem 0 !important;
+  letter-spacing: -0.01em;
+}
+
+.chart-subtitle {
+  color: #6b7280 !important;
+  font-size: 0.8rem !important;
+  font-weight: 400 !important;
+  margin: 0 !important;
+}
+
+/* ========================================
+   캡션
+   ======================================== */
+.stCaption {
+  color: #94a3b8 !important;
 }
