@@ -183,30 +183,6 @@ a:hover {
 }
 
 /* ========================================
-   통계 카드
-   ======================================== */
-.stat-card {
-  background: linear-gradient(145deg, #1a1d24 0%, #12141a 100%);
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  border-radius: 12px;
-  padding: 1.25rem;
-  text-align: center;
-}
-
-.stat-label {
-  color: #9ca3af !important;
-  font-size: 1rem !important;
-  margin-bottom: 0.5rem !important;
-}
-
-.stat-value {
-  color: #ffffff !important;
-  font-size: 1.8rem !important;
-  font-weight: 600 !important;
-  margin: 0 !important;
-}
-
-/* ========================================
    차트 카드
    ======================================== */
 .st-key-chart_card_trend,
@@ -235,3 +211,9 @@ a:hover {
   margin: 0 !important;
 }
 
+/* ========================================
+   캡션
+   ======================================== */
+.stCaption {
+  color: #94a3b8 !important;
+}
