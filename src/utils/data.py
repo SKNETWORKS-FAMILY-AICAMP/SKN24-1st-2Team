@@ -293,11 +293,24 @@ def get_dummy_car_info_data():
           cx_efc, ct_efc, hw_efc, max_dist, price, image
     """
     return [
-        # 전기 차량
-        ("전기", "e-마스터", "현대", "대형", 3.5, 300, 64.0, None, None, None, 400, 85000000, "https://autoimg.danawa.com/photo/4404/model_360.png"),
-        ("전기", "포터2 전기", "기아", "소형", 1.0, 100, 35.0, None, None, None, 200, 45000000, "https://autoimg.danawa.com/photo/4404/model_360.png"),
-        ("전기", "봉고3 전기", "기아", "중형", 1.5, 140, 58.0, None, None, None, 350, 65000000, "https://autoimg.danawa.com/photo/4404/model_360.png"),
-        ("전기", "라보전기", "GM대우", "중형", 1.5, 120, 50.0, None, None, None, 300, 58000000, "https://autoimg.danawa.com/photo/4404/model_360.png"),
+        # 봉고3 경유(일반) 모델
+        ("경유", "봉고3 1톤 표준캡", "기아", "소형", 1.0, 133, 65.0, 10.5, 9.2, 12.1, 682, 22800000, "https://autoimg.danawa.com/photo/4404/model_360.png"),
+        ("경유", "봉고3 1톤 슈퍼캡", "기아", "소형", 1.0, 133, 65.0, 10.3, 9.0, 11.9, 669, 24500000, "https://autoimg.danawa.com/photo/4404/model_360.png"),
+        ("경유", "봉고3 1.2톤 표준캡", "기아", "소형", 1.2, 133, 65.0, 10.2, 8.9, 11.8, 663, 23900000, "https://autoimg.danawa.com/photo/4404/model_360.png"),
+        ("경유", "봉고3 1.2톤 더블캡", "기아", "소형", 1.2, 133, 65.0, 10.0, 8.7, 11.6, 650, 26200000, "https://autoimg.danawa.com/photo/4404/model_360.png"),
+        # 봉고3 EV 모델
+        ("전기", "봉고3 EV 표준캡", "기아", "소형", 1.0, 136, 58.8, 2.9, 3.2, 2.6, 211, 52900000, "https://autoimg.danawa.com/photo/4404/model_360.png"),
+        ("전기", "봉고3 EV 롱레인지", "기아", "소형", 1.0, 136, 76.1, 2.8, 3.1, 2.5, 253, 58500000, "https://autoimg.danawa.com/photo/4404/model_360.png"),
+        ("전기", "봉고3 EV 슈퍼캡", "기아", "소형", 1.0, 136, 58.8, 2.8, 3.0, 2.5, 200, 54800000, "https://autoimg.danawa.com/photo/4404/model_360.png"),
+        # 포터3 경유(일반) 모델
+        ("경유", "포터2 1톤 표준캡", "현대", "소형", 1.0, 133, 65.0, 10.4, 9.1, 12.0, 676, 22500000, "https://autoimg.danawa.com/photo/4404/model_360.png"),
+        ("경유", "포터2 1톤 슈퍼캡", "현대", "소형", 1.0, 133, 65.0, 10.2, 8.9, 11.8, 663, 24200000, "https://autoimg.danawa.com/photo/4404/model_360.png"),
+        ("경유", "포터2 1.2톤 표준캡", "현대", "소형", 1.2, 133, 65.0, 10.1, 8.8, 11.7, 656, 23600000, "https://autoimg.danawa.com/photo/4404/model_360.png"),
+        ("경유", "포터2 1.2톤 더블캡", "현대", "소형", 1.2, 133, 65.0, 9.9, 8.6, 11.5, 643, 25900000, "https://autoimg.danawa.com/photo/4404/model_360.png"),
+        # 포터3 EV 모델
+        ("전기", "포터2 일렉트릭 표준캡", "현대", "소형", 1.0, 136, 58.8, 2.9, 3.2, 2.6, 211, 52500000, "https://autoimg.danawa.com/photo/4404/model_360.png"),
+        ("전기", "포터2 일렉트릭 롱레인지", "현대", "소형", 1.0, 136, 76.1, 2.8, 3.1, 2.5, 253, 58100000, "https://autoimg.danawa.com/photo/4404/model_360.png"),
+        ("전기", "포터2 일렉트릭 슈퍼캡", "현대", "소형", 1.0, 136, 58.8, 2.8, 3.0, 2.5, 200, 54400000, "https://autoimg.danawa.com/photo/4404/model_360.png"),
     ]
 
 
