@@ -1,0 +1,51 @@
+.nav-bar-container {
+  padding: 1rem 0;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.nav-bar {
+  font-weight: bold;
+  font-size: 14px;
+  letter-spacing: 0.3em;
+  text-align: center;
+  color: #fff;
+}
+
+.logo {
+  font-size: 1.5rem !important;
+  font-weight: bold !important;
+  color: #fff !important;
+  text-align: left !important;
+  margin-left: 1rem !important;
+}
+
+.nav-bar .logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #fff;
+  text-align: left;
+  margin-left: 1rem;
+}
+
+.nav-bar .nav-link {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #fff;
+  text-align: center;
+  margin-right: 1rem;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    max-height: 0;
+  }
+  to {
+    opacity: 1;
+    max-height: 100%;
+  }
+}
