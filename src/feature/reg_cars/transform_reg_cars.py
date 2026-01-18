@@ -1,13 +1,12 @@
 import pandas as pd
 import os
 
-rel_raw_path = '../../../data/raw/registered_cars'
-abs_raw_path = os.path.abspath(rel_raw_path)
+data_path = 'data/raw/registered_cars' # 프로젝트 루트 기준 상대 경로
 
 # 경로에서 엑셀 파일들 긁어오기
-all_files = os.listdir(abs_raw_path)
+all_files = os.listdir(data_path)
 xl_names = [f for f in all_files if f.endswith('.xlsx')]
-xl_files = [os.path.join(abs_raw_path, f) for f in xl_names]
+xl_files = [os.path.join(data_path, f) for f in xl_names]
 
 # for xl in xl_files:
 #     print(xl)
@@ -46,9 +45,17 @@ for file_path in xl_files:
 
     region_header_idx = 2
     df = pd.read_excel(xls, sheet_name=target_sheet_name, header=region_header_idx)
-    
-    # fuel_type: 연료별, type: 종별(승용/화물/...), usage: 용도별(비사업용/사업용/계)
+
+    # 1. 필수 컬럼명 변경
     df.rename(columns={df.columns[0]: 'fuel_type', df.columns[1]: 'type', df.columns[2]: 'usage'}, inplace=True)
+
+    # 2. 필요한 지역 컬럼만 명시적으로 선택 (가장 안정적인 방법)
+    # 이렇게 하면 '계'나 다른 불필요한 컬럼이 있어도 무시됨
+    regions = ['서울', '부산', '대구', '인천', '광주', '대전', '울산', '세종', '경기', '강원', '충북', '충남', '전북', '전남', '경북', '경남', '제주']
+    columns_to_keep = ['fuel_type', 'type', 'usage'] + regions
+    df = df[columns_to_keep]
+
+    # 3. 이후 로직 진행
     df['fuel_type'] = df['fuel_type'].ffill()
     df['type'] = df['type'].ffill()
 
@@ -73,29 +80,54 @@ result_df = pd.concat(all_processed_df, ignore_index=True)
 result_df['date'] = pd.to_numeric(result_df['date'])
 result_df['cnt'] = pd.to_numeric(result_df['cnt'])
 
-# 내연, 전기, 기타로 통일
+# 지역 8도 기준으로 통일
+region_map = {
+    '서울': '서울', '인천': '인천', '경기': '경기', '강원': '강원', '제주': '제주',
+    '충북': '충청', '충남': '충청', '대전': '충청', '세종': '충청',
+    '전북': '전라', '전남': '전라', '광주': '전라',
+    '경북': '경상', '경남': '경상', '부산': '경상', '대구': '경상', '울산': '경상'
+}
+result_df['region'] = result_df['region'].map(region_map)
+
+# 8도로 줄어든 region에 따라 공통된 값을 하나로 합침
+result_df = result_df.groupby(['date', 'region', 'fuel_type'])['cnt'].sum().reset_index()
+
+
+# 4가지 연료(디젤, LPG, 전기, 기타) 기준으로 통일
 fuel_map = {
-    '휘발유': '내연', '경유': '내연', '엘피지': '내연', 'CNG': '내연', '등유': '내연', 'LNG': '내연',
+    '경유': '디젤',
+    '엘피지': 'LPG',
     '전기': '전기',
-    '수소': '기타', '수소전기': '기타', '하이브리드(휘발유+전기)': '기타', 
-    '하이브리드(경유+전기)': '기타', '하이브리드(LPG+전기)': '기타', '기타연료': '기타'
+    # --- 아래는 모두 '기타'로 통합 ---
+    '휘발유': '기타',
+    'CNG': '기타',
+    '등유': '기타',
+    'LNG': '기타',
+    '수소': '기타',
+    '수소전기': '기타',
+    '하이브리드(휘발유+전기)': '기타',
+    '하이브리드(경유+전기)': '기타',
+    '하이브리드(LPG+전기)': '기타',
+    '하이브리드(CNG+전기)': '기타',
+    '하이브리드(LNG+전기)': '기타',
+    '기타연료': '기타',
+    '알코올': '기타',
+    '태양열': '기타'
 }
 result_df['fuel_type'] = result_df['fuel_type'].map(fuel_map)
 
-# 3개로 줄어든 fuel_type에 따라 공통된 값을 하나로 합침
+# 4개로 줄어든 fuel_type에 따라 공통된 값을 하나로 합침
 result_df = result_df.groupby(['date', 'region', 'fuel_type'])['cnt'].sum().reset_index()
-
 
 print("\nProcess complete")
 print("\n\n")
 
 # CSV 파일로 저장
-rel_output_path = '../../../data/processed/registered_cars'
-# abs_output_path = os.path.abspath(rel_output_path)
-os.makedirs(rel_output_path, exist_ok=True)
-output = os.path.join(rel_output_path, 'processed_registered_cars.csv')
-result_df.to_csv(output, index=False, encoding='utf-8-sig')
-print(f"Data saved: {rel_output_path}")
+output_dir = 'data/processed/registered_cars' # 프로젝트 루트 기준 상대 경로
+os.makedirs(output_dir, exist_ok=True)
+output_file_path = os.path.join(output_dir, 'processed_registered_cars.csv')
+result_df.to_csv(output_file_path, index=False, encoding='utf-8-sig')
+print(f"Data saved: {output_file_path}")
 
 
     

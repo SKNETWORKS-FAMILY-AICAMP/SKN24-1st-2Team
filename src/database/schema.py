@@ -22,9 +22,10 @@ class DBSchema:
     # 3. 지역별 연료별 등록 대수
     CNT_TABLE = """
     CREATE TABLE IF NOT EXISTS cnt_tbl (
-        date INT PRIMARY KEY,                                -- 년월(PK)
+        reg_id INT PRIMARY KEY AUTO_INCREMENT,               -- 등록 코드(PK)
         fuel_type VARCHAR(20) NOT NULL,                      -- 연료 이름(FK)
         region VARCHAR(10) NOT NULL,                         -- 지역 이름(FK)
+        date INT NOT NULL,                                   -- 년월
         cnt INT NOT NULL,                                    -- 등록 대수
         
         FOREIGN KEY (fuel_type) REFERENCES fuel_tbl(fuel_type)
