@@ -127,6 +127,10 @@
 
 ## 📊수행결과(시연 페이지)
 
+
+https://github.com/user-attachments/assets/3bc4c41c-4ef4-44b2-970d-2625b350a1ea
+
+
 <img width="1524" height="840" alt="image" src="https://github.com/user-attachments/assets/a1b8c390-8fda-4b44-a66b-3445c9710bb9" />
 
 ---
