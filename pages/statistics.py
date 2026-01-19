@@ -96,7 +96,7 @@ with registration_col:
     with st.container(key="chart_card_trend"):
         st.markdown("""
         <div class="chart-header">
-            <h3 class="chart-title">화물차 등록 추이</h3>
+            <h3 class="chart-title">화물차 등록 추이 (전년 대비 증가량)</h3>
             <p class="chart-subtitle">전기 vs 내연기관 (대)</p>
         </div>
         """, unsafe_allow_html=True)
