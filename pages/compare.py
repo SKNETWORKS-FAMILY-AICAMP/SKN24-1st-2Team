@@ -8,13 +8,51 @@ sys.path.insert(0, str(root_path))
 
 from src.utils.data import get_dummy_car_info_data, image_html
 
+# 서비스 레이어 import (선택적)
+try:
+    from src.services.car_info_service import get_car_info_list
+    _service_available = True
+except ImportError:
+    _service_available = False
+    get_car_info_list = None
+
 
 def _format_price_krw(price):
     if not price:
         return "-"
     return f"₩{price:,}"
 
+
 def _car_records():
+    """차량 정보 레코드 조회 - 서비스 레이어 우선, 폴백으로 더미 데이터 사용"""
+    # 서비스 레이어에서 데이터 조회 시도
+    if _service_available and get_car_info_list:
+        try:
+            db_records = get_car_info_list()
+            if db_records:
+                # DB 데이터는 이미 dict 형태
+                records = []
+                for r in db_records:
+                    records.append({
+                        "fuel_type": r.get("fuel_type", ""),
+                        "name": r.get("name", ""),
+                        "maker": r.get("maker", ""),
+                        "size": r.get("size"),
+                        "capacity": float(r.get("capacity", 0)) if r.get("capacity") is not None else 0.0,
+                        "h_power": int(r.get("h_power", 0)) if r.get("h_power") is not None else 0,
+                        "max_fuel": float(r.get("max_fuel", 0)) if r.get("max_fuel") is not None else 0.0,
+                        "cx_efc": float(r.get("cx_efc", 0)) if r.get("cx_efc") is not None else 0.0,
+                        "ct_efc": float(r.get("ct_efc", 0)) if r.get("ct_efc") is not None else 0.0,
+                        "hw_efc": float(r.get("hw_efc", 0)) if r.get("hw_efc") is not None else 0.0,
+                        "max_dist": int(r.get("max_dist", 0)) if r.get("max_dist") is not None else 0,
+                        "price": int(r.get("price", 0)) if r.get("price") is not None else 0,
+                        "image": r.get("image"),
+                    })
+                return records
+        except Exception:
+            pass  # 폴백으로 더미 데이터 사용
+    
+    # 더미 데이터 폴백
     rows = get_dummy_car_info_data()
     records = []
     for r in rows:
@@ -40,11 +78,11 @@ def _car_records():
 
 
 def _family_from_name(name):
-    """차량 이름에서 계열(봉고3, 포터) 추출"""
+    """차량 이름에서 계열(봉고, 포터) 추출"""
     if not name:
         return None
     if "봉고" in name:
-        return "봉고3"
+        return "봉고"
     if "포터" in name:
         return "포터"
     return None
@@ -57,27 +95,27 @@ def _is_ev(record):
 
 def _cars_by_family_and_type(records):
     """
-    계열별로 일반(경유)과 EV(전기)를 분리하여 반환
+    계열별로 LPG와 전기를 분리하여 반환
     구조: {
-        "봉고3": {"일반": [...], "EV": [...]},
-        "포터": {"일반": [...], "EV": [...]}
+        "봉고": {"LPG": [...], "전기": [...]},
+        "포터": {"LPG": [...], "전기": [...]}
     }
     """
     families = {
-        "봉고3": {"일반": [], "EV": []},
-        "포터": {"일반": [], "EV": []}
+        "봉고": {"LPG": [], "전기": []},
+        "포터": {"LPG": [], "전기": []}
     }
     for rec in records:
         fam = _family_from_name(rec["name"])
         if fam in families:
             if _is_ev(rec):
-                families[fam]["EV"].append(rec)
+                families[fam]["전기"].append(rec)
             else:
-                families[fam]["일반"].append(rec)
+                families[fam]["LPG"].append(rec)
     # 보기 좋게 정렬(가격 순)
     for fam in families:
-        families[fam]["일반"] = sorted(families[fam]["일반"], key=lambda x: (x["price"], x["name"]))
-        families[fam]["EV"] = sorted(families[fam]["EV"], key=lambda x: (x["price"], x["name"]))
+        families[fam]["LPG"] = sorted(families[fam]["LPG"], key=lambda x: (x["price"], x["name"]))
+        families[fam]["전기"] = sorted(families[fam]["전기"], key=lambda x: (x["price"], x["name"]))
     return families
 
 
@@ -238,7 +276,7 @@ def _render_detail_page(records, model_a_name, model_b_name):
     comparison_values_a = [
         model_a.get("fuel_type", "-"),
         model_a.get("maker", "-"),
-        model_a.get("size", "-"),
+        model_a.get("size", "-") or "-",
         f"{model_a.get('capacity', 0):g} 톤",
         f"{model_a.get('h_power', 0)} hp",
         f"{model_a.get('max_fuel', 0):g} kWh" if model_a.get("fuel_type") == "전기" else f"{model_a.get('max_fuel', 0):g} L",
@@ -248,7 +286,7 @@ def _render_detail_page(records, model_a_name, model_b_name):
     comparison_values_b = [
         model_b.get("fuel_type", "-"),
         model_b.get("maker", "-"),
-        model_b.get("size", "-"),
+        model_b.get("size", "-") or "-",
         f"{model_b.get('capacity', 0):g} 톤",
         f"{model_b.get('h_power', 0)} hp",
         f"{model_b.get('max_fuel', 0):g} kWh" if model_b.get("fuel_type") == "전기" else f"{model_b.get('max_fuel', 0):g} L",
@@ -350,19 +388,19 @@ families = _cars_by_family_and_type(records)
 
 # 세션 상태 초기화
 if "compare_vehicle_type" not in st.session_state:
-    st.session_state.compare_vehicle_type = "봉고3"
+    st.session_state.compare_vehicle_type = "봉고"
 
 if "compare_show_detail" not in st.session_state:
     st.session_state.compare_show_detail = False
 
 selected_family = st.session_state.compare_vehicle_type
 
-# 선택된 계열의 일반/EV 차량 리스트
-normal_cars = families.get(selected_family, {}).get("일반", [])
-ev_cars = families.get(selected_family, {}).get("EV", [])
+# 선택된 계열의 LPG/전기 차량 리스트
+lpg_cars = families.get(selected_family, {}).get("LPG", [])
+ev_cars = families.get(selected_family, {}).get("전기", [])
 
 if "compare_model_top" not in st.session_state:
-    st.session_state.compare_model_top = normal_cars[0].get("name") if normal_cars else ""
+    st.session_state.compare_model_top = lpg_cars[0].get("name") if lpg_cars else ""
 if "compare_model_bottom" not in st.session_state:
     st.session_state.compare_model_bottom = ev_cars[0].get("name") if ev_cars else ""
 
@@ -371,7 +409,7 @@ if "compare_prev_family" not in st.session_state:
     st.session_state.compare_prev_family = selected_family
 
 if st.session_state.compare_prev_family != selected_family:
-    st.session_state.compare_model_top = normal_cars[0].get("name") if normal_cars else ""
+    st.session_state.compare_model_top = lpg_cars[0].get("name") if lpg_cars else ""
     st.session_state.compare_model_bottom = ev_cars[0].get("name") if ev_cars else ""
     st.session_state.compare_prev_family = selected_family
 
@@ -442,23 +480,23 @@ else:
     with main_col:
         st.markdown('<div class="compare-page-spacer"></div>', unsafe_allow_html=True)
 
-        # 위쪽: 일반(경유) 모델
+        # 위쪽: LPG 모델
         picked_top = _render_compare_card(
             key="compare_card_top",
-            title="일반 (경유)",
-            subtitle=f"{selected_family} 일반 모델",
-            car_options=normal_cars,
+            title="LPG",
+            subtitle=f"{selected_family} LPG 모델",
+            car_options=lpg_cars,
             selected_name=st.session_state.compare_model_top,
         )
         st.session_state.compare_model_top = picked_top
 
         st.markdown('<div class="compare-divider"></div>', unsafe_allow_html=True)
 
-        # 아래쪽: EV(전기) 모델
+        # 아래쪽: 전기 모델
         picked_bottom = _render_compare_card(
             key="compare_card_bottom",
-            title="EV (전기)",
-            subtitle=f"{selected_family} EV 모델",
+            title="전기",
+            subtitle=f"{selected_family} 전기 모델",
             car_options=ev_cars,
             selected_name=st.session_state.compare_model_bottom,
         )
