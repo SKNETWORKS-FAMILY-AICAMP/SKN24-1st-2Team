@@ -45,11 +45,11 @@ SITES = [
         "description": "Seoul Trucking Association",
         "parser": "parse_kgta_style_table"
     },
-    {
-        "url": "https://main.kotsa.or.kr/portal/bbs/faq_list.do?menuCode=04010100", 
-        "description": "KOTSA (Traffic Safety)",
-        "parser": "parse_kotsa"
-    },
+    # {
+    #     "url": "https://main.kotsa.or.kr/portal/bbs/faq_list.do?menuCode=04010100", 
+    #     "description": "KOTSA (Traffic Safety)",
+    #     "parser": "parse_kotsa"
+    # },
     {
         "url": "https://ev.or.kr/nportal/partcptn/initFaqAction.do", 
         "description": "EV Charging Infrastructure",
