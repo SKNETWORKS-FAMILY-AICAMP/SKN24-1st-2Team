@@ -176,7 +176,7 @@ a:hover {
 .legend-dot {
   width: 10px;
   height: 10px;
-  background: #3b82f6;
+  background: #ffffff;
   border-radius: 50%;
   display: inline-block;
   flex-shrink: 0;
@@ -436,3 +436,350 @@ a:hover {
   transform: translateY(0) !important;
 }
 
+/* ========================================
+   차량 비교 페이지
+   ======================================== */
+.compare-layout-anchor + div[data-testid="stHorizontalBlock"] {
+  align-items: stretch !important;
+}
+
+.compare-layout-anchor + div[data-testid="stHorizontalBlock"] > div[data-testid="column"] {
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+.compare-layout-anchor + div[data-testid="stHorizontalBlock"] > div[data-testid="column"] > div {
+  flex: 1 1 auto !important;
+}
+
+.st-key-compare_sidebar {
+  background: linear-gradient(145deg, #111318 0%, #0b0d11 100%);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 14px;
+  padding: 1.25rem 1.25rem 1.1rem 1.25rem;
+  position: sticky;
+  top: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  height: 100%;
+}
+
+.compare-back {
+  margin-top: 1.25rem !important;
+  color: #9ca3af !important;
+  font-size: 0.85rem !important;
+  margin-bottom: 0.75rem !important;
+  letter-spacing: 0.02em;
+}
+
+.compare-sidebar-title {
+  color: #ffffff !important;
+  font-size: 1.2rem !important;
+  font-weight: 600 !important;
+  line-height: 1.35 !important;
+  margin-bottom: 1rem !important;
+}
+
+/* 사이드바 버튼(큰 캡슐 느낌) */
+.st-key-compare_sidebar button {
+  height: 46px !important;
+  border-radius: 10px !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  font-size: 0.95rem !important;
+  font-weight: 600 !important;
+  box-shadow: none !important;
+}
+
+.st-key-compare_sidebar button[kind="secondary"] {
+  background: rgba(255, 255, 255, 0.02) !important;
+  color: #ffffff !important;
+}
+
+.st-key-compare_sidebar button[kind="secondary"]:hover {
+  background: rgba(255, 255, 255, 0.06) !important;
+}
+
+.st-key-compare_sidebar button[kind="primary"] {
+  background: transparent !important;
+  color: #ffffff !important;
+  border-color: rgba(255, 255, 255, 0.55) !important;
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.18) inset !important;
+}
+
+/* 카드 컨테이너 */
+.st-key-compare_card_top,
+.st-key-compare_card_bottom {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 14px;
+  padding: 1.25rem 1.25rem;
+}
+
+.compare-page-spacer {
+  height: 0.5rem;
+}
+
+.compare-divider {
+  height: 1px;
+  background: rgba(255, 255, 255, 0.06);
+  margin: 1.2rem 0 1.2rem 0;
+}
+
+/* 카드 내부: 이미지(인라인 SVG) */
+.compare-image {
+  width: 100%;
+  height: 220px;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  background: #05060a;
+}
+
+/* 메트릭 */
+.compare-metrics {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.compare-metric-value {
+  font-size: 2.1rem !important;
+  font-weight: 700 !important;
+  letter-spacing: -0.02em;
+  color: #ffffff !important;
+  margin: 0 !important;
+  line-height: 1.05;
+}
+
+.compare-metric-label {
+  font-size: 0.95rem !important;
+  color: #9ca3af !important;
+  margin-top: 0.15rem !important;
+}
+
+/* 셀렉트박스 */
+.st-key-compare_card_top [data-testid="stSelectbox"] > div,
+.st-key-compare_card_bottom [data-testid="stSelectbox"] > div {
+  background: rgba(255, 255, 255, 0.03) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-radius: 10px !important;
+}
+
+.st-key-compare_card_top [data-testid="stSelectbox"] *,
+.st-key-compare_card_bottom [data-testid="stSelectbox"] * {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.st-key-compare_card_top [data-testid="stSelectbox"] > div:focus,
+.st-key-compare_card_top [data-testid="stSelectbox"] > div:focus-within,
+.st-key-compare_card_top [data-testid="stSelectbox"] > div:focus-visible,
+.st-key-compare_card_bottom [data-testid="stSelectbox"] > div:focus,
+.st-key-compare_card_bottom [data-testid="stSelectbox"] > div:focus-within,
+.st-key-compare_card_bottom [data-testid="stSelectbox"] > div:focus-visible {
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.st-key-compare_card_top [data-testid="stSelectbox"] div[role="button"],
+.st-key-compare_card_bottom [data-testid="stSelectbox"] div[role="button"] {
+  color: #ffffff !important;
+}
+
+.st-key-compare_card_top [data-testid="stSelectbox"] div[role="button"]:focus,
+.st-key-compare_card_top [data-testid="stSelectbox"] div[role="button"]:focus-visible,
+.st-key-compare_card_bottom [data-testid="stSelectbox"] div[role="button"]:focus,
+.st-key-compare_card_bottom [data-testid="stSelectbox"] div[role="button"]:focus-visible {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* 카드 우측 메타 정보 */
+.compare-meta {
+  margin-top: 0.8rem;
+}
+
+.compare-meta-title {
+  color: #ffffff !important;
+  font-size: 1.05rem !important;
+  font-weight: 600 !important;
+  line-height: 1.3 !important;
+}
+
+.compare-meta-sub {
+  color: #9ca3af !important;
+  font-size: 0.85rem !important;
+  margin-top: 0.2rem !important;
+}
+
+/* 반응형: 좁은 화면에서는 sticky/높이 강제 제거 */
+@media (max-width: 1024px) {
+  .st-key-compare_sidebar {
+    position: static !important;
+    top: auto !important;
+    height: auto !important;
+  }
+}
+
+/* ========================================
+   상세 비교 페이지
+   ======================================== */
+
+/* 차량 정보 카드 */
+.compare-detail-card {
+  background: #000000;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 14px;
+  padding: 1.5rem;
+  text-align: center;
+}
+
+.compare-detail-card-image {
+  width: 100%;
+  height: 200px;
+  background: #0a0a0a;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+  overflow: hidden;
+}
+
+.compare-detail-card-title {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 0.5rem;
+  letter-spacing: 0.02em;
+}
+
+.compare-detail-card-subtitle {
+  font-size: 0.9rem;
+  color: #888888;
+  margin-bottom: 0.75rem;
+}
+
+.compare-detail-card-price {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-top: 0.5rem;
+}
+
+/* 섹션 타이틀 */
+.compare-section-title {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: 1.5rem;
+  letter-spacing: 0.02em;
+}
+
+/* 사양 정보 테이블 */
+.compare-spec-table-container {
+  background: #000000;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+.compare-spec-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.compare-spec-table thead tr {
+  background: rgba(255, 255, 255, 0.02);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.compare-spec-table thead th {
+  padding: 1.2rem 1.5rem;
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.compare-spec-table thead th:first-child {
+  text-align: left;
+}
+
+.compare-spec-table thead th:last-child {
+  text-align: right;
+}
+
+.compare-spec-table tbody tr {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.compare-spec-table tbody td {
+  padding: 1.1rem 1.5rem;
+  font-size: 0.95rem;
+}
+
+.compare-spec-table tbody td:first-child {
+  color: #888888;
+  text-align: left;
+}
+
+.compare-spec-table tbody td:last-child {
+  color: #ffffff;
+  font-weight: 500;
+  text-align: right;
+}
+
+/* 연비 정보 카드 */
+.compare-fuel-card {
+  background: #000000;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  padding: 1.75rem 1.5rem;
+}
+
+.compare-fuel-card-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 1.25rem;
+  letter-spacing: 0.02em;
+}
+
+.compare-fuel-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.9rem;
+  padding: 0.25rem 0;
+}
+
+.compare-fuel-item:last-child {
+  margin-bottom: 0;
+}
+
+.compare-fuel-item-label {
+  color: #888888;
+  font-size: 0.95rem;
+}
+
+.compare-fuel-item-value {
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+/* 사이드바 안내 문구 */
+.compare-sidebar-info {
+  font-size: 0.85rem;
+  color: #888888;
+  line-height: 1.6;
+  text-align: center;
+  padding: 0.5rem 0;
+}
+
+.compare-sidebar-info strong {
+  color: #ffffff;
+  font-weight: 600;
+}
