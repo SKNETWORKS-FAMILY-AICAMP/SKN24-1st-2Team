@@ -26,6 +26,9 @@ get_region_list = _optional_service_fn("src.services.region_service", "get_regio
 get_registration_count_list = _optional_service_fn(
     "src.services.registration_service", "get_registration_count_list"
 )
+get_registration_trend = _optional_service_fn(
+    "src.services.registration_service", "get_registration_trend"
+)
 
 # ==============================================================================
 # 통계/현황(지도) 데이터
@@ -108,7 +111,8 @@ def get_paldo_ratio_data():
 # 통계/현황(차트) 데이터
 # ==============================================================================
 
-REGISTRATION_TREND_DATA = [
+_trend_data = get_registration_trend() if get_registration_trend else []
+REGISTRATION_TREND_DATA = _trend_data if _trend_data else [
     {"year": "2019", "electric": 1200, "combustion": 45000},
     {"year": "2020", "electric": 2800, "combustion": 43500},
     {"year": "2021", "electric": 5400, "combustion": 41200},
