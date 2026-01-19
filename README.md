@@ -3,9 +3,11 @@
 ### 👍DumPs-Up
 |고아라|권민세|김현수|문성준|임정희|
 |----|---|---|---|---|
-|[Akoh-0909](https://github.com/Akoh-0909)|[KweonMinSe0109](https://github.com/KweonMinSe0109)|[BarryKim34](https://github.com/BarryKim34)|[dal-sj](https://github.com/dal-sj)|[bigmooon](https://github.com/bigmooon)|
+| <img src="https://github.com/user-attachments/assets/d9c0b5d5-7df8-4d39-a31e-d16b036e9e8e" width="160"> | <img src="https://github.com/user-attachments/assets/72bad72a-a349-4d73-bc37-6b4b7534857d" width="160"> | <img src="https://github.com/user-attachments/assets/73d6a835-154a-46a9-8689-954402a433ca" width="160"> | <img src="https://github.com/user-attachments/assets/53ef684e-1826-4383-b7ad-b45866c38758" width="160"> | <img src="https://github.com/user-attachments/assets/df516a42-0c80-450a-b972-64e75778e420" width="160"> |
+| [Akoh-0909](https://github.com/Akoh-0909) | [KweonMinSe0109](https://github.com/KweonMinSe0109) | [BarryKim34](https://github.com/BarryKim34) | [dal-sj](https://github.com/dal-sj) | [bigmooon](https://github.com/bigmooon) |
 
-
+<br/>
+<br/>
 
 # 🚛 DumPs-Up: 화물차주를 위한 맞춤형 의사결정 지원 플랫폼
 
@@ -34,7 +36,8 @@
 국내 화물 운송 종사자의 평균 연령대는 40~60대로, 타 산업군 대비 디지털 정보 접근성이 상대적으로 낮습니다. 급변하는 정책 공고와 보조금 신청 시스템에서 소외될 우려가 큽니다.
 - **관련 통계**: 성인 8.2%는 일상적인 디지털 기기 조작에 어려움을 겪고 있으며, 40~50대 이상에서 그 비중이 높게 나타납니다.
   
-    <img! 연령대별 운수 종사자 차트>
+    <img width="1311" height="681" alt="chart" src="https://github.com/user-attachments/assets/3d0bca51-7d10-4651-a90d-3b29b8b03d79" />
+
   - [성인 8.2%, 일상에서 기본적 디지털기기 조작도 어려워 (연합뉴스)](https://www.yna.co.kr/view/AKR20250819075600530)
   - [제1차 성인디지털문해능력조사 결과 발표 (교육부)](https://www.moe.go.kr/boardCnts/viewRenew.do?boardID=294&boardSeq=103949&lev=0&searchType=null&statusYN=W&page=1&s=moe&m=020402&opType=N)
 
@@ -73,16 +76,24 @@
 
 1. **정보 비대칭 해소**: 정보 습득 역량에 따라 경제적 혜택에서 차별받지 않도록, 누구나 이해하기 쉬운 직관적인 대시보드를 제공합니다.
 2. **지속 가능한 운송 생태계 지원**: 화물차 차주들이 막연한 불안감 때문에 효율적인 선택을 포기하지 않도록 돕는 신뢰할 수 있는 가이드 역할을 수행합니다.
+
+
 ## ⚙️기술 스택
-![Streamlit](https://img.shields.io/badge/Streamlit-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white) ![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white) ![MySQL](https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=mysql&logoColor=white)
-![Figma](https://img.shields.io/badge/Figma-F24E1E?style=for-the-badge&logo=figma&logoColor=white) ![Selenium](https://img.shields.io/badge/Selenium-43B02A?style=for-the-badge&logo=selenium&logoColor=white) 
+![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white) ![Streamlit](https://img.shields.io/badge/Streamlit-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white) ![MySQL](https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=mysql&logoColor=white)  ![Pandas](https://img.shields.io/badge/Pandas-150458?style=for-the-badge&logo=pandas&logoColor=white) ![Plotly](https://img.shields.io/badge/Plotly-23F16F?style=for-the-badge&logo=plotly&logoColor=white) ![Selenium](https://img.shields.io/badge/Selenium-43B02A?style=for-the-badge&logo=selenium&logoColor=white)
+
+
 ## 💻WBS
 
 
 ## 📄요구사항 명세서
 
 ## 📋ERD
-<사진첨부>
+<img width="674" height="335" alt="ERD_논리" src="https://github.com/user-attachments/assets/af61aa86-60d4-4ce5-9670-9400d4aee345" />
+
+<br/>
+<br/>
+
+<img width="703" height="378" alt="ERD_물리" src="https://github.com/user-attachments/assets/e251df61-16ca-457f-8a12-200a9ce473a2" />
 
 ## 📊수행결과(시연 페이지)
 
