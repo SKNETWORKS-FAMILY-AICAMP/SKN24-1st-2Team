@@ -22,7 +22,7 @@
 - **의미**: 화물차(**Dump**) 시장의 새로운 기준을 제시하고, 차주들의 합리적인 선택을 응원(**Thumbs Up**)한다는 가치를 담고 있습니다.
 
 ### 1.2 프로젝트 정의
-노후화 및 사고로 차량 교체 기로에 선 화물 운송 종사자를 위해, 내연기관과 전기차의 최신 시장 데이터를 대조하여 제시하는 **'사용자 주도형 의사결정 지원 플랫폼'**입니다.
+노후화 및 사고로 차량 교체 기로에 선 화물 운송 종사자를 위해, 내연기관과 전기차의 최신 시장 데이터를 대조하여 제시하는 **사용자 주도형 의사결정 지원 플랫폼**입니다.
 
 ### 1.3 서비스 지향점
 - **객관적 사실 고지**: 특정 유종이나 모델을 정답으로 강요하지 않으며, 급변하는 정보를 시각화하여 전달합니다.
@@ -78,7 +78,6 @@
 2. **지속 가능한 운송 생태계 지원**: 화물차 차주들이 막연한 불안감 때문에 효율적인 선택을 포기하지 않도록 돕는 신뢰할 수 있는 가이드 역할을 수행합니다.
 
 <br/>
-<br/>
 
 ## ⚙️기술 스택
 ![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white) ![Streamlit](https://img.shields.io/badge/Streamlit-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white) ![MySQL](https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=mysql&logoColor=white)  ![Pandas](https://img.shields.io/badge/Pandas-150458?style=for-the-badge&logo=pandas&logoColor=white) ![Plotly](https://img.shields.io/badge/Plotly-23F16F?style=for-the-badge&logo=plotly&logoColor=white) ![Selenium](https://img.shields.io/badge/Selenium-43B02A?style=for-the-badge&logo=selenium&logoColor=white)
@@ -130,14 +129,12 @@
 
 <img width="1524" height="840" alt="image" src="https://github.com/user-attachments/assets/a1b8c390-8fda-4b44-a66b-3445c9710bb9" />
 
-<br/>
-<br/>
+---
 
 <img width="3420" height="2214" alt="비교1" src="https://github.com/user-attachments/assets/7cf8abbd-1674-49a0-a50c-ee71fe9eba44" />
 <img width="3420" height="2214" alt="비교2" src="https://github.com/user-attachments/assets/a52861a1-7584-4b47-8f74-b2fd7175b9cd" />
 
-<br/>
-<br/>
+---
 
 <img width="1917" height="903" alt="faq1" src="https://github.com/user-attachments/assets/5469c692-e32d-4a39-9cda-1a19c43ccc4e" />
 <img width="1913" height="902" alt="faq2" src="https://github.com/user-attachments/assets/10c7cbc4-a05f-4f4f-97d5-5b42cfca7973" />
