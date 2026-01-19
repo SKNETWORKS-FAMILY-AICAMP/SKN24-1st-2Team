@@ -51,6 +51,7 @@ class DBSchema:
         hw_efc DECIMAL(10, 1),                               -- 고속도로 연비
         max_dist INT NOT NULL,                               -- 최대 주행거리
         price INT NOT NULL,                                  -- 가격
+        maintenance_cost INT,                                -- 연간 유지비 (만원)
         image VARCHAR(255),                                  -- 이미지 경로
 
         FOREIGN KEY (fuel_type) REFERENCES fuel_tbl(fuel_type)
