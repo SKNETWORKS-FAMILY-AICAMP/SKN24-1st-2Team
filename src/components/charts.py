@@ -47,12 +47,27 @@ def render_registration_trend_chart(data):
         hovertemplate="%{y:,.0f}대<extra></extra>"
     ))
     
-    # Y축 최댓값 계산 (k 단위 표시)
-    max_val = max(max(electric), max(combustion))
-    tick_step = 15000
+    # Y축 눈금 계산 최적화
+    max_val = max(max(electric), max(combustion)) if electric and combustion else 100000
+    
+    # 눈금이 최대 5~6개만 나오도록 step 조절
+    if max_val > 1000000:
+        tick_step = 10000000 # 10M 단위
+    elif max_val > 100000:
+        tick_step = 500000   # 500k 단위
+    else:
+        tick_step = 15000    # 기존 유지
+        
     max_tick = ((max_val // tick_step) + 1) * tick_step
-    tickvals = list(range(0, int(max_tick) + 1, tick_step))
-    ticktext = [f"{int(v/1000)}k" for v in tickvals]
+    tickvals = list(range(0, int(max_tick) + 1, int(tick_step)))
+    
+    # 단위 표시 (k: 천, M: 백만)
+    def format_tick(v):
+        if v >= 1000000: return f"{v/1000000:.1f}M"
+        if v >= 1000: return f"{int(v/1000)}k"
+        return str(v)
+    
+    ticktext = [format_tick(v) for v in tickvals]
     
     fig.update_layout(
         paper_bgcolor="rgba(0,0,0,0)",

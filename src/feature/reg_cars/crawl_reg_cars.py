@@ -45,7 +45,7 @@ for xl in sorted_xls:
         dwnld_files.append(xl.text)
         driver.execute_script("arguments[0].click()", xl)
         cnt += 1
-        time.sleep(0.5) # 너무 빠르게 받으면 몇개 놓침
+        time.sleep(1) # 너무 빠르게 받으면 몇개 놓침
         
 
 time.sleep(2)
